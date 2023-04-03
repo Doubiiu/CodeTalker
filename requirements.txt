@@ -1,0 +1,16 @@
+tensorboardX
+einops
+numpy
+scipy==1.7.1
+librosa==0.8.1
+tqdm
+pickle
+torch==1.9.1+cu111
+torchvision==0.10.1+cu111
+torchaudio==0.9.1
+transformers==4.6.1
+trimesh==3.9.27
+pyrender==0.1.45
+pyopengl==3.1.5
+pyglet==1.5.27
+opencv-python

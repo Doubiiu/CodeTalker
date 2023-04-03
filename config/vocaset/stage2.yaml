@@ -1,0 +1,93 @@
+DATA:
+  dataset: vocaset
+  data_root: ./vocaset/
+  wav_path: wav_mini
+  vertices_path: vertices_npy
+  template_file: templates.pkl
+  read_audio: True
+  train_subjects: FaceTalk_170728_03272_TA FaceTalk_170904_00128_TA FaceTalk_170725_00137_TA FaceTalk_170915_00223_TA FaceTalk_170811_03274_TA FaceTalk_170913_03279_TA FaceTalk_170904_03276_TA FaceTalk_170912_03278_TA
+  val_subjects: FaceTalk_170811_03275_TA FaceTalk_170908_03277_TA
+  test_subjects: FaceTalk_170809_00138_TA FaceTalk_170731_00024_TA
+  
+LOSS:
+  loss: MSE
+  motion_weight: 1.0
+  reg_weight: 1.0
+
+NETWORK:
+  arch: stage2
+  in_dim: 15069
+  hidden_size: 1024
+  num_hidden_layers: 6
+  num_attention_heads: 8
+  intermediate_size: 1536
+  window_size: 1
+  quant_factor: 0
+  face_quan_num: 16
+  neg: 0.2
+  autoencoder: stage1_vocaset
+  INaffine: False
+  style_emb_method: nnemb # onehot or nnemb
+
+VQuantizer:
+  n_embed: 256
+  zquant_dim: 64
+
+PREDICTOR:
+  feature_dim: 1024
+  vertice_dim: 15069
+  device: cuda
+  period: 30
+  vqvae_pretrained_path: RUN/vocaset/CodeTalker_s1/model/model.pth.tar
+  wav2vec2model_path: facebook/wav2vec2-base-960h
+  teacher_forcing: True
+  num_layers: 6
+  n_head: 4 # not used
+
+TRAIN:
+  use_sgd: False
+  sync_bn: False  # adopt sync_bn or not
+  train_gpu: [0]
+  workers: 10  # data loader workers
+  batch_size: 1  # batch size for training
+  batch_size_val: 1  # batch size for validation during training, memory and speed tradeoff
+  base_lr: 0.0001
+  StepLR: False
+  warmup_steps: 1
+  adaptive_lr: False
+  factor: 0.3
+  patience: 3
+  threshold: 0.0001
+  poly_lr: False
+  epochs: 100
+  step_size: 100
+  gamma: 0.5
+  start_epoch: 0
+  power: 0.9
+  momentum: 0.9
+  weight_decay: 0.002
+  manual_seed: 131
+  print_freq: 10
+  save_freq: 1
+  save_path:
+#  weight:
+  weight:
+  resume:
+  evaluate: True  # evaluate on validation set, extra gpu memory needed and small batch_size_val is recommend
+  eval_freq: 10
+
+Distributed:
+  dist_url: tcp://127.0.0.1:6701
+  dist_backend: 'nccl'
+  multiprocessing_distributed: True
+  world_size: 1
+  rank: 0
+
+
+TEST:
+  test_workers: 0
+  test_gpu: [0]
+  test_batch_size: 1
+  save: True
+  model_path:
+  save_folder:

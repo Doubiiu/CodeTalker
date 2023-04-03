@@ -1,0 +1,78 @@
+DATA:
+  dataset: BIWI
+  data_root: ./BIWI/
+  wav_path: wav
+  vertices_path: vertices_npy
+  template_file: templates.pkl
+  read_audio: False
+  train_subjects: F2 F3 F4 M3 M4 M5
+  val_subjects: F2 F3 F4 M3 M4 M5
+  test_subjects: F1 F5 F6 F7 F8 M1 M2 M6
+
+LOSS:
+  quant_loss_weight: 1.0
+
+NETWORK:
+  arch: stage1_BIWI
+  in_dim: 70110
+  hidden_size: 1024
+  num_hidden_layers: 6
+  num_attention_heads: 8
+  intermediate_size: 1536
+  quant_factor: 0 # ablation 2**quant_factor = window_size in temporal axis 
+  face_quan_num: 8
+  neg: 0.2
+  INaffine: False
+
+
+VQuantizer:
+  n_embed: 256
+  zquant_dim: 128
+
+TRAIN:
+  use_sgd: False
+  sync_bn: False  # adopt sync_bn or not
+  train_gpu: [0]
+  workers: 10  # data loader workers
+  batch_size: 1  # batch size for training
+  batch_size_val: 1  # batch size for validation during training, memory and speed tradeoff
+  base_lr: 0.0001
+  StepLR: False
+  warmup_steps: 1
+  adaptive_lr: False
+  factor: 0.3
+  patience: 3
+  threshold: 0.0001
+  poly_lr: False
+  epochs: 200
+  step_size: 40
+  gamma: 0.5
+  start_epoch: 0
+  power: 0.9
+  momentum: 0.9
+  weight_decay: 0.002
+  manual_seed: 131
+  print_freq: 10
+  save_freq: 1
+  save_path:
+#  weight:  
+  weight:
+  resume:
+  evaluate: True  # evaluate on validation set, extra gpu memory needed and small batch_size_val is recommend
+  eval_freq: 10
+
+Distributed:
+  dist_url: tcp://127.0.0.1:6701
+  dist_backend: 'nccl'
+  multiprocessing_distributed: True
+  world_size: 1
+  rank: 0
+
+
+TEST:
+  test_workers: 0
+  test_gpu: [0]
+  test_batch_size: 1
+  save: True
+  model_path:
+  save_folder:

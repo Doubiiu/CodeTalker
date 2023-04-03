@@ -1,0 +1,48 @@
+DATA:
+  dataset: BIWI
+  data_root: ./BIWI/
+  wav_path: wav
+  vertices_path: vertices_npy
+  template_file: templates.pkl
+  train_subjects: F2 F3 F4 M3 M4 M5
+
+NETWORK:
+  arch: stage2
+  in_dim: 70110
+  hidden_size: 1024
+  num_hidden_layers: 6
+  num_attention_heads: 8
+  intermediate_size: 1536
+  window_size: 1
+  quant_factor: 0 # do not downsample in temporal domain
+  face_quan_num: 8
+  neg: 0.2
+  autoencoder: stage1_BIWI
+  INaffine: False
+  style_emb_method: nnemb # onehot or nnemb
+
+VQuantizer:
+  n_embed: 256
+  zquant_dim: 128
+
+PREDICTOR:
+  feature_dim: 1024
+  vertice_dim: 70110
+  mouth_vertice_dim: 14988
+  device: cuda
+  period: 25
+  vqvae_pretrained_path: BIWI/biwi_stage1.pth.tar
+  wav2vec2model_path: facebook/wav2vec2-base-960h
+  teacher_forcing: True
+  num_layers: 12
+  n_head: 4 # not used
+  
+DEMO:
+  model_path: BIWI/biwi_stage2.pth.tar
+  condition: F2  # should be within train_subjects: F2 F3 F4 M3 M4 M5
+  subject: M1
+  demo_wav_path: demo/wav/man.wav
+  demo_output_path: demo/output/
+  demo_npy_save_folder: demo/npy/
+  fps: 25
+  background_black: True # chose the background color of your rendered video
