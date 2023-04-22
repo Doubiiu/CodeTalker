@@ -6,7 +6,7 @@ Official PyTorch implementation for the paper:
 >
 > Jinbo Xing, Menghan Xia, Yuechen Zhang, Xiaodong Cun, Jue Wang, Tien-Tsin Wong
 >
-> <a href='https://arxiv.org/abs/2303.09535'><img src='https://img.shields.io/badge/arXiv-2301.02379-red'></a> <a href='https://doubiiu.github.io/projects/codetalker/'><img src='https://img.shields.io/badge/Project-Video-Green'></a>
+> <a href='https://arxiv.org/abs/2301.02379'><img src='https://img.shields.io/badge/arXiv-2301.02379-red'></a> <a href='https://doubiiu.github.io/projects/codetalker/'><img src='https://img.shields.io/badge/Project-Video-Green'></a>
 
 <p align="center">
 <img src="figure.png" width="75%"/>

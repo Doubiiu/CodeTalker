@@ -31,7 +31,7 @@ VQuantizer:
 
 TRAIN:
   use_sgd: False
-  sync_bn: Ture  # adopt sync_bn or not
+  sync_bn: False  # adopt sync_bn or not
   train_gpu: [0]
   workers: 10  # data loader workers
   batch_size: 1  # batch size for training
