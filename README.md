@@ -6,7 +6,7 @@ Official PyTorch implementation for the paper:
 >
 > Jinbo Xing, Menghan Xia, Yuechen Zhang, Xiaodong Cun, Jue Wang, Tien-Tsin Wong
 >
-> <a href='https://arxiv.org/abs/2301.02379'><img src='https://img.shields.io/badge/arXiv-2301.02379-red'></a> <a href='https://doubiiu.github.io/projects/codetalker/'><img src='https://img.shields.io/badge/Project-Video-Green'></a>
+> <a href='https://arxiv.org/abs/2301.02379'><img src='https://img.shields.io/badge/arXiv-2301.02379-red'></a> <a href='https://doubiiu.github.io/projects/codetalker/'><img src='https://img.shields.io/badge/Project-Video-Green'></a> <a href='https://colab.research.google.com/github/VideoCrafter/VideoCrafter/blob/main/demo.ipynb'><img src='https://img.shields.io/badge/Demo-Open in Colab-blue'></a>
 
 <p align="center">
 <img src="figure.png" width="75%"/>
@@ -15,11 +15,13 @@ Official PyTorch implementation for the paper:
 > We propose CodeTalker by casting speech-driven facial animation as a code query task in a finite proxy space of the learned codebook. Given the raw audio and a 3D neutral face template, our CodeTalker can produce vivid and realistic 3D facial motions with subtle expressions and accurate lip movements. 
 
 ## **Changelog**
+- 2023.06.16 Provide a Colab online demo.
 - 2023.04.03 Release code and model weights!
 
-## **TODO**
 
-- [ ] Provide online demo.
+<!-- ## **TODO**
+
+- [ ] Provide online demo. -->
 
 ## **Environment**
 - Linux
