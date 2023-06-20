@@ -3,4 +3,16 @@ __pycache__/
 
 .DS_Store
 scrap_code.txt
+
 CodeTalker/mesh_library
+
+CodeTalker/vocaset/FLAME_sample.ply
+CodeTalker/vocaset/vocaset_stage1.pth.tar
+CodeTalker/vocaset/vocaset_stage2.pth.tar
+CodeTalker/vocaset/data_verts.npy
+CodeTalker/vocaset/raw_audio_fixed.pkl
+CodeTalker/vocaset/templates.pkl
+CodeTalker/vocaset/subj_seq_to_idx.pkl
+
+CodeTalker/vocaset/vertices_npy/
+CodeTalker/vocaset/wav/

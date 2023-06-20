@@ -1,41 +1,10 @@
 #!/bin/sh
 
-##### Some common utils
-
-# No params
-print_newline() {
-	echo ""
-}
-
-# Param: cmd
-try_cmd() {
-	eval $1
-
-	if [[ $? != 0 ]]; then
-		echo "this command failed: '$1'"
-		exit 1
-	fi
-}
-
-# Param: status
-log_status() {
-	echo ">>> $1"
-}
-
-# Params: filename, src pattern, dest pattern
-replace_in_file() {
-	try_cmd "sed -i '' 's/$2/$3/g' $1"
-}
-
 ##### Some installation functions
 
 prepare_for_install() {
-	if [[ `basename $PWD` != "scripts" ]]; then
-		echo "Expected the install script to be run from the 'scripts' directory!"
-		exit 1
-	fi
-
-	source shared_vars.sh
+	source utils/utils.sh
+	source utils/shared_vars.sh
 	inspect_and_verify_shared_vars
 	cd ..
 }
@@ -50,7 +19,9 @@ replace_old_venv() {
 		log_status "navigated to venv dir $PWD"
 		[ -d $PROJ_NAME ] && (log_status "removing a preexisting $PROJ_NAME venv"; rm -r $PROJ_NAME)
 		log_status "making a new $PROJ_NAME venv"
-		try_cmd "$PYTHON_CMD -m venv $PROJ_NAME" # TODO: add the `--copies` flag back?
+
+		# TODO: add the `--copies` flag back?
+		try_cmd "$PYTHON_CMD -m venv $PROJ_NAME"
 	cd $install_dir
 
 	log_status "renavigated to install dir $install_dir"

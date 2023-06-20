@@ -4,8 +4,12 @@
 
 #### Installation
 
+- Note that any scripts run expect Python 3.8 and `pip` to be available, along with `brew`, `git`, `make`, `sed`, and `basename`.
+- Also note that all scripts are specifically made for MacOS.
 
-1. Navigate to **scripts/**, and run *install.sh*. Note that this script is intended for MacOS.
-- Note that the script expects Python 3.8 and `pip` to be available, along with `brew`, `git`, `make`, `sed`, and `basename`.
+---
+
+1. Navigate to **scripts/**, and run *code_install.sh*.
+2. Run *data_install.sh*.
 
 ---
