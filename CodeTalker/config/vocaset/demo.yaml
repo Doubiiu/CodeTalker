@@ -28,7 +28,7 @@ VQuantizer:
 PREDICTOR:
   feature_dim: 1024
   vertice_dim: 15069
-  device: cuda
+  device: cpu
   period: 30
   vqvae_pretrained_path: vocaset/vocaset_stage1.pth.tar
   wav2vec2model_path: facebook/wav2vec2-base-960h

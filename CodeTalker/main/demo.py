@@ -5,6 +5,7 @@ import torch
 import numpy as np
 import librosa
 import pickle
+import device_info
 
 from transformers import Wav2Vec2Processor
 from base.utilities import get_parser
@@ -18,7 +19,7 @@ cfg = get_parser()
 
 import tempfile
 from subprocess import call
-os.environ['PYOPENGL_PLATFORM'] = 'osmesa' #egl
+# os.environ['PYOPENGL_PLATFORM'] = 'osmesa' #egl
 import pyrender
 import trimesh
 from psbody.mesh import Mesh
@@ -108,8 +109,9 @@ def render_mesh_helper(args,mesh, t_center, rot=np.zeros(3), tex_img=None, z_off
 def main():
 	global cfg
 	model = get_model(cfg)
-	# if torch.cuda.is_available():
-	model = model.cuda()
+
+	if device_info.get_device_name() == "cuda":
+		model = model.cuda()
 
 	if os.path.isfile(cfg.model_path):
 		print("=> loading checkpoint '{}'".format(cfg.model_path))
@@ -136,19 +138,20 @@ def test(model, wav_file, save_folder, condition, subject):
 	template_file = os.path.join(cfg.data_root, cfg.template_file)
 	with open(template_file, 'rb') as fin:
 		templates = pickle.load(fin,encoding='latin1')
-	
+
+	device_name = device_info.get_device_name()
 
 	train_subjects_list = [i for i in cfg.train_subjects.split(" ")]
 	one_hot_labels = np.eye(len(train_subjects_list))
 	iter = train_subjects_list.index(condition)
 	one_hot = one_hot_labels[iter]
 	one_hot = np.reshape(one_hot,(-1,one_hot.shape[0]))
-	one_hot = torch.FloatTensor(one_hot).to(device='cuda')
+	one_hot = torch.FloatTensor(one_hot).to(device=device_name)
 
 	temp = templates[subject]
 	template = temp.reshape((-1))
 	template = np.reshape(template,(-1,template.shape[0]))
-	template = torch.FloatTensor(template).to(device='cuda')
+	template = torch.FloatTensor(template).to(device=device_name)
 
 
 	test_name = os.path.basename(wav_file).split(".")[0]
@@ -159,7 +162,7 @@ def test(model, wav_file, save_folder, condition, subject):
 	processor = Wav2Vec2Processor.from_pretrained(cfg.wav2vec2model_path)
 	audio_feature = np.squeeze(processor(speech_array,sampling_rate=16000).input_values)
 	audio_feature = np.reshape(audio_feature,(-1,audio_feature.shape[0]))
-	audio_feature = torch.FloatTensor(audio_feature).to(device='cuda')
+	audio_feature = torch.FloatTensor(audio_feature).to(device=device_name)
 
 
 
@@ -177,9 +180,9 @@ def test(model, wav_file, save_folder, condition, subject):
 		template_file = os.path.join(cfg.data_root, "BIWI.ply")
 	elif cfg.dataset == "vocaset":
 		template_file = os.path.join(cfg.data_root, "FLAME_sample.ply")
-		 
+
 	print("rendering: ", test_name)
-				 
+
 	template = Mesh(filename=template_file)
 	predicted_vertices = np.load(predicted_vertices_path)
 	predicted_vertices = np.reshape(predicted_vertices,(-1,cfg.vertice_dim//3,3))

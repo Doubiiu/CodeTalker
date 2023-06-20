@@ -22,7 +22,7 @@ get_flame_sample() {
 	log_status "getting flame sample\n"
 
 	filename="FLAME_sample.ply"
-	try_cmd "curl -L https://github.com/downloads/TimoBolkart/voca/template/$filename --silent --output $filename"
+	try_cmd "curl -L https://raw.githubusercontent.com/TimoBolkart/voca/master/template/$filename --silent --output $filename"
 
 	mv "$filename" "$DATA_DEST"
 }
