@@ -1,2 +1,3 @@
 *.pth.tar
 __pycache__/
+.DS_Store
