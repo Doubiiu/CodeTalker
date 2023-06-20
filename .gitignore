@@ -17,3 +17,6 @@ CodeTalker/vocaset/subj_seq_to_idx.pkl
 
 CodeTalker/vocaset/vertices_npy/
 CodeTalker/vocaset/wav/
+
+CodeTalker/demo/npy/
+CodeTalker/demo/output/
