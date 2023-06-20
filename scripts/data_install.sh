@@ -22,7 +22,7 @@ get_flame_sample() {
 	log_status "getting flame sample\n"
 
 	filename="FLAME_sample.ply"
-	curl --output $filename -L https://github.com/downloads/TimoBolkart/voca/template/"$filename"
+	try_cmd "curl -L https://github.com/downloads/TimoBolkart/voca/template/$filename --silent --output $filename"
 
 	mv "$filename" "$DATA_DEST"
 }
@@ -81,7 +81,6 @@ main() {
 	print_newline
 
 	get_flame_sample
-	print_newline
 
 	get_pretrained_models
 	get_voca_training_data
