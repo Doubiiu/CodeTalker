@@ -1,6 +1,7 @@
 *.pth.tar
 __pycache__/
 
+.vscode/
 .DS_Store
 scrap_code.txt
 
