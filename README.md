@@ -125,10 +125,10 @@ sh scripts/cal_metric.sh
 If you find the code useful for your work, please star this repo and consider citing:
 
 ```
-@inproceedings{xing2023codetalker,
+@article{xing2023codetalker,
   title={CodeTalker: Speech-Driven 3D Facial Animation with Discrete Motion Prior},
   author={Xing, Jinbo and Xia, Menghan and Zhang, Yuechen and Cun, Xiaodong and Wang, Jue and Wong, Tien-Tsin},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  journal={arXiv preprint arXiv:2301.02379},
   year={2023}
 }
 ```
