@@ -1,7 +1,7 @@
 DATA:
   dataset: vocaset
   data_root: ./vocaset/
-  wav_path: wav_mini
+  wav_path: wav
   vertices_path: vertices_npy
   template_file: templates.pkl
   read_audio: True
